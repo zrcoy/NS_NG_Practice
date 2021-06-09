@@ -5,18 +5,25 @@ import {
 } from "@nativescript/angular";
 
 import { AppComponent } from "./app.component";
-import { GridLayoutAssignComponent } from "./layouts/grid-layout-assign/grid-layout-assign.component";
-import { ChallengeComponent } from "./challenge/challenge/challenge.component";
+import { CurrentChallengeComponent } from "./challenge/current-challenge/current-challenge.component";
 import { ChallengeEditComponent } from "./challenge/challenge-edit/challenge-edit.component";
+import { TodayComponent } from "./challenge/today/today.component";
+import { AuthComponent } from "./auth/auth.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component";
+import { ChallengeTabsComponent } from "./challenge/challenge-tabs/challenge-tabs.component";
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [NativeScriptModule, NativeScriptFormsModule],
+  imports: [NativeScriptModule, NativeScriptFormsModule, AppRoutingModule],
   declarations: [
     AppComponent,
-    GridLayoutAssignComponent,
-    ChallengeComponent,
-    ChallengeEditComponent
+    CurrentChallengeComponent,
+    ChallengeEditComponent,
+    TodayComponent,
+    AuthComponent,
+    ActionBarComponent,
+    ChallengeTabsComponent
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA]

@@ -1,0 +1,8 @@
+<ActionBar [title]="title" (loaded)="onLoadActionBar()">
+  <NavigationButton
+    text="Back"
+    android.systemIcon="ic_menu_back"
+    (tap)="onBack()"
+    *ngIf="canGoBack"
+  ></NavigationButton>
+</ActionBar>
