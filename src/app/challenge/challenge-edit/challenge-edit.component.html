@@ -1,4 +1,7 @@
-<ns-action-bar title="Edit Challenge"></ns-action-bar>
+<ns-action-bar
+  [title]="finishCreating ? 'Replace Challenge' : 'Edit Challenge'"
+  [hasMenu]="false"
+></ns-action-bar>
 <FlexboxLayout justifyContent="space-between">
   <label text="edit the page"></label>
 </FlexboxLayout>

@@ -6,11 +6,12 @@
     *ngIf="canGoBack"
   ></NavigationButton>
   <NavigationButton
-    *ngIf="android"
+    *ngIf="android && hasMenu"
     icon="res://menu_black"
     (tap)="onToggleDrawer()"
   ></NavigationButton>
-  <ActionItem *ngIf="!android" ios.position="left">
+  <ActionItem *ngIf="!android && hasMenu" ios.position="left">
     <Label text="MENU"></Label>
   </ActionItem>
+  <ng-content></ng-content>
 </ActionBar>

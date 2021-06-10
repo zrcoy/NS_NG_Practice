@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { RouterExtensions } from "@nativescript/angular";
+import { Page } from "@nativescript/core";
 
 @Component({
   selector: "ns-challenge-tabs",
@@ -10,7 +11,8 @@ import { RouterExtensions } from "@nativescript/angular";
 export class ChallengeTabsComponent implements OnInit {
   constructor(
     private router: RouterExtensions,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private page: Page
   ) {}
 
   ngOnInit() {
@@ -22,5 +24,6 @@ export class ChallengeTabsComponent implements OnInit {
       ],
       { relativeTo: this.route }
     );
+    this.page.actionBarHidden = true;
   }
 }
