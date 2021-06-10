@@ -3,6 +3,8 @@ import { RouterExtensions } from "@nativescript/angular";
 import { Page } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core/platform";
 
+import { UIService } from "../ui.service";
+
 declare var android: any;
 
 @Component({
@@ -14,7 +16,15 @@ export class ActionBarComponent {
   @Input() title = "";
   @Input() showBackButton = true;
 
-  constructor(private page: Page, private router: RouterExtensions) {}
+  constructor(
+    private page: Page,
+    private router: RouterExtensions,
+    private uiService: UIService
+  ) {}
+
+  get android() {
+    return isAndroid;
+  }
 
   onLoadActionBar() {
     if (isAndroid) {
@@ -35,5 +45,9 @@ export class ActionBarComponent {
 
   onBack() {
     this.router.backToPreviousPage();
+  }
+
+  onToggleDrawer() {
+    this.uiService.toggleDrawer();
   }
 }

@@ -3,6 +3,7 @@ import {
   NativeScriptFormsModule,
   NativeScriptModule
 } from "@nativescript/angular";
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 
 import { AppComponent } from "./app.component";
 import { CurrentChallengeComponent } from "./challenge/current-challenge/current-challenge.component";
@@ -15,7 +16,12 @@ import { ChallengeTabsComponent } from "./challenge/challenge-tabs/challenge-tab
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [NativeScriptModule, NativeScriptFormsModule, AppRoutingModule],
+  imports: [
+    NativeScriptModule,
+    NativeScriptFormsModule,
+    AppRoutingModule,
+    NativeScriptUISideDrawerModule
+  ],
   declarations: [
     AppComponent,
     CurrentChallengeComponent,
