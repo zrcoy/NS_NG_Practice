@@ -17,10 +17,9 @@
   </ActionItem>
 </ns-action-bar>
 <StackLayout>
-  <Button class="btn btn-primary" text="edit" (tap)="onEdit()"></Button>
   <Button
     class="btn btn-primary"
-    text="replace"
-    nsRouterLink="/challenges/replace"
+    text="Change Status"
+    (tap)="onChangeStatus()"
   ></Button>
 </StackLayout>
