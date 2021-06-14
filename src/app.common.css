@@ -1,0 +1,31 @@
+@import "@nativescript/theme/css/core.css";
+@import "@nativescript/theme/css/default.css";
+
+button.-primary {
+  font-size: 18;
+}
+
+.form-control {
+  border-bottom-color: #7c015d;
+  border-bottom-width: 2;
+  margin: 5 0;
+  font-size: 20;
+  padding: 8 4;
+}
+
+.drawer-container {
+  background: linear-gradient(140deg, #2b0c72, #5c3fa0);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20;
+}
+
+.btn {
+  border-width: 1;
+  width: 100%;
+  padding: 5 10;
+  border-radius: 30%;
+  margin: 5 0;
+  border-color: #7c015d;
+}

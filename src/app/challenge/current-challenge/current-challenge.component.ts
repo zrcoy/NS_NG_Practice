@@ -6,7 +6,10 @@ import { DayModalComponent } from "../day-modal/day-modal.component";
 @Component({
   selector: "ns-current-challenge",
   templateUrl: "./current-challenge.component.html",
-  styleUrls: ["./current-challenge.component.css"]
+  styleUrls: [
+    "./current-challenge.component.common.css",
+    "./current-challenge.component.css"
+  ]
 })
 export class CurrentChallengeComponent {
   constructor(
