@@ -1,9 +1,13 @@
 <FlexboxLayout>
   <Label [text]="loadedDate | date"></Label>
   <Button
-    class="btn"
+    class="btn -primary -rounded-lg"
     text="Completed"
     (tap)="onHandleStatus('completed')"
   ></Button>
-  <Button class="btn" text="Failed" (tap)="onHandleStatus('failed')"></Button>
+  <Button
+    class="btn -primary -rounded-lg"
+    text="Failed"
+    (tap)="onHandleStatus('failed')"
+  ></Button>
 </FlexboxLayout>

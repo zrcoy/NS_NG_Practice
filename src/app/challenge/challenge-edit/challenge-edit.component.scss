@@ -1,0 +1,26 @@
+@import "../../../theme/_colors.scss";
+
+.nt-form {
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nt-input {
+  width: 80%;
+}
+
+.nt-label {
+  color: $primary;
+  font-weight: bold;
+}
+
+.input-field {
+  border-bottom-width: 2;
+  border-color: $primary;
+  width: 100%;
+}
+
+btn-local {
+  width: 30%;
+}

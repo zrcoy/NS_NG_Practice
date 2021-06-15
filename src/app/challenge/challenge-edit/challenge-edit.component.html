@@ -2,6 +2,14 @@
   [title]="finishCreating ? 'Replace Challenge' : 'Edit Challenge'"
   [hasMenu]="false"
 ></ns-action-bar>
-<FlexboxLayout justifyContent="space-between">
-  <label text="edit the page"></label>
+<FlexboxLayout class="form">
+  <StackLayout class="nt-input">
+    <label text="Title" class="nt-label"></label>
+    <TextField hint="insert title" class="input-field"></TextField>
+  </StackLayout>
+  <StackLayout class="nt-input">
+    <label text="Description" class="nt-label"></label>
+    <TextField hint="insert description" class="input-field"></TextField>
+  </StackLayout>
+  <Button class="btn -primary btn-local" text="Save"></Button>
 </FlexboxLayout>

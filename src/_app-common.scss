@@ -1,8 +1,15 @@
-@import "@nativescript/theme/css/core.css";
-@import "@nativescript/theme/css/default.css";
+// @import "@nativescript/theme/css/core.css";
+// @import "@nativescript/theme/css/default.css";
+@import "~@nativescript/theme/core";
+//@import "@nativescript/theme/orange";
 
-button.-primary {
-  font-size: 18;
+// @import "~@nativescript/theme/_index";
+
+@import "./theme/colors";
+
+ActionBar {
+  background: $primary;
+  color: white;
 }
 
 .form-control {
@@ -23,7 +30,7 @@ button.-primary {
 
 .btn {
   border-width: 1;
-  width: 100%;
+  // width: 100%;
   padding: 5 10;
   border-radius: 30%;
   margin: 5 0;
