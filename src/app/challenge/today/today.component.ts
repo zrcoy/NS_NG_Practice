@@ -5,4 +5,8 @@ import { Component } from "@angular/core";
   templateUrl: "./today.component.html",
   styleUrls: ["./today.component.scss"]
 })
-export class TodayComponent {}
+export class TodayComponent {
+  onHandleActions(action: "complete" | "fail" | "cancel") {
+    console.log("today: " + action);
+  }
+}

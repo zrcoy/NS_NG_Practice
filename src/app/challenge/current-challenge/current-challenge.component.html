@@ -5,7 +5,12 @@
     android.position="actionBar"
     pageTransition="slideLeft"
   >
-    <Label text="edit"></Label>
+    <Label
+      text="&#xf044;"
+      ios:class="fa p-3"
+      android:class="fa p-3"
+      android:fontSize="24"
+    ></Label>
   </ActionItem>
   <ActionItem
     nsRouterLink="/challenges/replace"
@@ -13,7 +18,13 @@
     android.position="actionBar"
     pageTransition="slideLeft"
   >
-    <Label text="replace"> </Label>
+    <Label
+      text="&#xf0fe;"
+      ios:class="fa p-3"
+      android:class="fa p-3"
+      android:fontSize="24"
+    >
+    </Label>
   </ActionItem>
 </ns-action-bar>
 <ScrollView>
@@ -27,22 +38,22 @@
     </StackLayout>
     <GridLayout rows="auto,*,*,*,*,*,*" columns="*,*,*,*,*,*,*">
       <Label
-        class="text-center"
+        class="h3 text-center weekdays"
         width="100%"
         *ngFor="let weekDay of weekDays; let i = index"
         [text]="weekDay"
         row="0"
         [col]="i"
       ></Label>
-      <Label
-        width="50"
-        height="50"
+      <FlexboxLayout
+        class="days disabled"
         *ngFor="let day of days; let i = index"
-        [text]="day.dayInMonth"
         [row]="getRow(i, day)"
         [col]="day.dayInWeek"
-      ></Label>
-      <!-- <Button (tap)="displayDay()"></Button> -->
+        (tap)="onChangeStatus()"
+      >
+        <Label [text]="day.dayInMonth"></Label
+      ></FlexboxLayout>
     </GridLayout>
   </FlexboxLayout>
 </ScrollView>

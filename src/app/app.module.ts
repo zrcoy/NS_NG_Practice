@@ -10,6 +10,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { DayModalComponent } from "./challenge/day-modal/day-modal.component";
 import { SharedModule } from "./shared/shared.module";
+import { ChallengeActionsModule } from "./challenge/challenge-actions/challenge-actions.module";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -18,7 +19,8 @@ import { SharedModule } from "./shared/shared.module";
     NativeScriptFormsModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,
-    SharedModule
+    SharedModule,
+    ChallengeActionsModule
   ],
   declarations: [AppComponent, AuthComponent, DayModalComponent],
   providers: [],

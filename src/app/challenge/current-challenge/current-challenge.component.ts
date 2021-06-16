@@ -9,8 +9,8 @@ import { DayModalComponent } from "../day-modal/day-modal.component";
   styleUrls: ["./_current-challenge.component.common.scss"]
 })
 export class CurrentChallengeComponent implements OnInit {
-  weekDays = ["S", "M", "T", "W", "T", "F", "S"];
-  days: { dayInMonth: number; dayInWeek: number }[];
+  weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  days: { dayInMonth: number; dayInWeek: number }[] = [];
   private _currentYear: number;
   private _currentMonth: number;
 
@@ -21,12 +21,19 @@ export class CurrentChallengeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const daysInCurrentMonth = new Date().getDate();
+    this._currentMonth = new Date().getMonth();
+    this._currentYear = new Date().getFullYear();
+    const daysInCurrentMonth = new Date(
+      this._currentYear,
+      this._currentMonth + 1,
+      0
+    ).getDate();
     for (let i = 1; i <= daysInCurrentMonth; i++) {
       const date = new Date(this._currentYear, this._currentMonth, i);
+      const day = date.getDay();
       this.days.push({
         dayInMonth: i,
-        dayInWeek: date.getDay()
+        dayInWeek: day
       });
     }
   }

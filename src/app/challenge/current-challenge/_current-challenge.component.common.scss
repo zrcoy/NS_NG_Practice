@@ -1,6 +1,45 @@
+@import "../../../theme/colors";
+
 .page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 20;
+}
+
+.weekdays {
+  color: $secondary;
+  font-weight: bold;
+  margin: 15 0;
+}
+
+.days {
+  justify-content: center;
+  align-items: center;
+  width: 50;
+  height: 50;
+  border-color: $primary;
+  border-width: 1;
+  border-radius: 50%;
+  color: $primary;
+  margin: 10;
+}
+
+.body {
+  color: $primary;
+}
+
+.completed {
+  background: $success;
+  color: $white;
+}
+
+.failed {
+  background: $fail;
+  color: $white;
+}
+
+.disabled {
+  background: $disabled;
+  color: $primary;
 }

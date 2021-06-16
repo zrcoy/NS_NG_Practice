@@ -43,6 +43,7 @@ ActionBar {
   .nt-label {
     color: $primary;
     font-weight: bold;
+    font-family: "Oswald", "Oswald-Regular", "Oswald-Bold";
   }
 
   .input-field {
@@ -55,4 +56,13 @@ ActionBar {
 .h1 {
   font-weight: bold;
   color: $primary;
+  font-family: "Dancing Script", "DancingScript-VariableFont_wght";
+}
+
+.h3 {
+  font-family: "Dancing Script", "DancingScript-VariableFont_wght";
+}
+
+.fa {
+  font-family: "FontAwesome", "Font-Awesome";
 }
