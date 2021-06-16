@@ -1,9 +1,4 @@
-// @import "@nativescript/theme/css/core.css";
-// @import "@nativescript/theme/css/default.css";
 @import "~@nativescript/theme/core";
-//@import "@nativescript/theme/orange";
-
-// @import "~@nativescript/theme/_index";
 
 @import "./theme/colors";
 
@@ -30,9 +25,34 @@ ActionBar {
 
 .btn {
   border-width: 1;
-  // width: 100%;
   padding: 5 10;
   border-radius: 30%;
   margin: 5 0;
-  border-color: #7c015d;
+  border-color: $primary;
+}
+
+.nt-form {
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nt-input {
+  width: 80%;
+
+  .nt-label {
+    color: $primary;
+    font-weight: bold;
+  }
+
+  .input-field {
+    border-bottom-width: 2;
+    border-color: $primary;
+    width: 100%;
+  }
+}
+
+.h1 {
+  font-weight: bold;
+  color: $primary;
 }
