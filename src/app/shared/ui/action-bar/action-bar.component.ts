@@ -31,9 +31,13 @@ export class ActionBarComponent {
     if (isAndroid) {
       const androidToolbar = this.page.actionBar.nativeView;
       const backButton = androidToolbar.getNavigationIcon();
+      let color = "#171717";
+      if (this.hasMenu) {
+        color = "#ffffff";
+      }
       if (backButton) {
         backButton.setColorFilter(
-          android.graphics.Color.parseColor("#0059e8"),
+          android.graphics.Color.parseColor(color),
           (<any>android.graphics).PorterDuff.Mode.SRC_ATOP
         );
       }

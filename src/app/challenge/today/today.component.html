@@ -2,7 +2,9 @@
   title="Today's Challenge"
   [showBackButton]="false"
 ></ns-action-bar>
-<ns-challenge-actions
-  (action-challenge-select)="onHandleActions($event)"
-  dynamicCancelText="Reset"
-></ns-challenge-actions>
+<GridLayout>
+  <ns-challenge-actions
+    (action-challenge-select)="onHandleActions($event)"
+    dynamicCancelText="Reset"
+  ></ns-challenge-actions>
+</GridLayout>
