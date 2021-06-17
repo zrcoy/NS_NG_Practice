@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import {
   NativeScriptCommonModule,
+  NativeScriptFormsModule,
   NativeScriptRouterModule
 } from "@nativescript/angular";
 
@@ -10,6 +11,7 @@ import { SharedModule } from "../../shared/shared.module";
 @NgModule({
   declarations: [ChallengeEditComponent],
   imports: [
+    NativeScriptFormsModule,
     NativeScriptCommonModule,
     SharedModule,
     NativeScriptRouterModule.forChild([

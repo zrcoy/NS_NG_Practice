@@ -37,6 +37,13 @@ ActionBar {
   border-color: $primary;
 }
 
+.btn-flat {
+  border-color: transparent;
+  color: $primary;
+  border-width: 1;
+  z-index: 0;
+}
+
 .nt-form {
   justify-content: flex-start;
   flex-direction: column;
@@ -52,10 +59,20 @@ ActionBar {
     font-family: "Oswald", "Oswald-Regular", "Oswald-Bold";
   }
 
+  .nt-label.invalid {
+    color: red;
+  }
+
   .input-field {
     border-bottom-width: 2;
-    border-color: $primary;
+    border-bottom-color: $primary;
     width: 100%;
+    color: black;
+  }
+
+  .input-field.ng-invalid.ng-touched {
+    color: red;
+    border-bottom-color: red;
   }
 }
 

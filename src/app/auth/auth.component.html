@@ -1,11 +1,64 @@
 <ns-action-bar
-  title="Login"
+  [title]="isLogin ? 'Login' : 'Signup'"
   [showBackButton]="false"
   [hasMenu]="false"
 ></ns-action-bar>
-<Button
-  text="Login"
-  class="btn"
-  nsRouterLink="/challenges"
-  [clearHistory]="true"
-></Button>
+<FlexboxLayout class="nt-form" [formGroup]="form">
+  <StackLayout class="nt-input">
+    <label
+      text="User name"
+      class="nt-label"
+      [ngClass]="{ invalid: !emailControlIsValid }"
+    ></label>
+    <TextField
+      formControlName="email"
+      hint="insert user name here"
+      class="input-field"
+      returnKeyType="next"
+      keyboardType="email"
+      [autocorrect]="false"
+      autocapitalizationType="none"
+      #emailEl
+    ></TextField>
+    <Label
+      *ngIf="!emailControlIsValid"
+      text="Email address is not valid. Please try again."
+    ></Label>
+  </StackLayout>
+  <StackLayout class="nt-input">
+    <label
+      text="Password"
+      class="nt-label"
+      [ngClass]="{ invalid: !passwdControlIsValid }"
+    ></label>
+    <TextField
+      formControlName="password"
+      hint="Min 6 characters"
+      returnKeyType="done"
+      class="input-field"
+      [autocorrect]="false"
+      autocapitalizationType="none"
+      [secure]="true"
+      #passwdEl
+      (returnPress)="loseFocusToTriggerUpdate()"
+    ></TextField>
+    <Label
+      *ngIf="!passwdControlIsValid"
+      text="The minimum characters number of password is 6."
+    ></Label>
+  </StackLayout>
+
+  <Button
+    class="btn-flat"
+    [text]="isLogin ? 'Go Signup' : 'Go Login'"
+    (tap)="onSwitch()"
+  ></Button>
+  <Button
+    [text]="isLogin ? 'Login' : 'Signup'"
+    class="btn"
+    nsRouterLink="/challenges"
+    [clearHistory]="true"
+    (tap)="onSubmit()"
+    [isEnabled]="form.valid"
+  ></Button>
+</FlexboxLayout>

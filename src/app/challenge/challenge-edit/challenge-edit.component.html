@@ -4,12 +4,49 @@
 ></ns-action-bar>
 <FlexboxLayout class="nt-form">
   <StackLayout class="nt-input">
-    <label text="Title" class="nt-label"></label>
-    <TextField hint="insert title" class="input-field"></TextField>
+    <label
+      text="Title"
+      class="nt-label"
+      [ngClass]="{ invalid: !titleCtrl.valid && titleCtrl.touched }"
+    ></label>
+    <TextField
+      hint="insert title"
+      returnKeyType="next"
+      class="input-field"
+      required
+      maxLength="15"
+      ngModel
+      #titleCtrl="ngModel"
+    ></TextField>
+    <Label
+      *ngIf="!titleCtrl.valid && titleCtrl.touched"
+      text="Title is not valid. Please try again."
+    ></Label>
   </StackLayout>
   <StackLayout class="nt-input">
-    <label text="Description" class="nt-label"></label>
-    <TextField hint="insert description" class="input-field"></TextField>
+    <label
+      text="Description"
+      class="nt-label"
+      [ngClass]="{ invalid: !desCtrl.valid && desCtrl.touched }"
+    ></label>
+    <TextView
+      hint="insert description"
+      returnKeyType="done"
+      class="input-field"
+      required
+      maxLength="150"
+      ngModel
+      #desCtrl="ngModel"
+    ></TextView>
+    <Label
+      *ngIf="!desCtrl.valid && desCtrl.touched"
+      text="Description is not valid. Please try again."
+    ></Label>
   </StackLayout>
-  <Button class="btn" text="Save"></Button>
+  <Button
+    class="btn"
+    text="Save"
+    [isEnabled]="titleCtrl.valid && desCtrl.valid"
+    (tap)="onSubmit(titleCtrl.value, desCtrl.value)"
+  ></Button>
 </FlexboxLayout>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { PageRoute } from "@nativescript/angular";
+import { PageRoute, RouterExtensions } from "@nativescript/angular";
 
 @Component({
   selector: "ns-challenge-edit",
@@ -12,7 +12,8 @@ export class ChallengeEditComponent implements OnInit {
 
   constructor(
     private pageRoute: PageRoute,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: RouterExtensions
   ) {}
 
   ngOnInit() {
@@ -28,5 +29,10 @@ export class ChallengeEditComponent implements OnInit {
         this.finishCreating = paramMap.get("mode") !== "edit";
       }
     });
+  }
+
+  onSubmit(title: string, des: string) {
+    console.log(title, des);
+    this.router.backToPreviousPage();
   }
 }
