@@ -7,17 +7,20 @@ FlexboxLayout {
 }
 
 .btn {
-  width: 30%;
+  width: 60%;
 }
 
 .btn-success {
   background: $success;
   border-color: $success;
-  color: $white;
 }
 
 .btn-fail {
   background: $fail;
   border-color: $fail;
-  color: $white;
+}
+
+.btn-markStatus {
+  font-size: 30;
+  margin-top: 10;
 }

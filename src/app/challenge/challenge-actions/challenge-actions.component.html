@@ -1,11 +1,38 @@
 <FlexboxLayout>
   <Button
+    height="60"
     class="btn btn-success"
     text="Completed"
     (tap)="onAction('complete')"
+    *ngIf="action !== 'complete'"
   ></Button>
-  <Button class="btn btn-fail" text="Failed" (tap)="onAction('fail')"></Button>
+  <StackLayout
+    height="60"
+    class="btn btn-success"
+    *ngIf="action === 'complete'"
+  >
+    <Label
+      text="&#xf058;"
+      horizontalAlignment="center"
+      class="fa btn-markStatus"
+    ></Label>
+  </StackLayout>
   <Button
+    height="60"
+    class="btn btn-fail"
+    text="Failed"
+    (tap)="onAction('fail')"
+    *ngIf="action !== 'fail'"
+  ></Button>
+  <StackLayout height="60" class="btn btn-fail" *ngIf="action === 'fail'">
+    <Label
+      text="&#xf057;"
+      horizontalAlignment="center"
+      class="fa btn-markStatus"
+    ></Label>
+  </StackLayout>
+  <Button
+    height="60"
     class="btn-flat"
     [text]="dynamicCancelText"
     (tap)="onAction('cancel')"

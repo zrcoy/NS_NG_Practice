@@ -18,6 +18,6 @@ export class DayModalComponent implements OnInit {
   }
 
   onHandleActions(actions: "complete" | "fail" | "cancel") {
-    console.log("day-modal: " + actions);
+    // console.log("day-modal: " + actions);
   }
 }

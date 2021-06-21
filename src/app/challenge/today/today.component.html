@@ -3,8 +3,20 @@
   [showBackButton]="false"
 ></ns-action-bar>
 <GridLayout>
-  <ns-challenge-actions
-    (action-challenge-select)="onHandleActions($event)"
-    dynamicCancelText="Reset"
-  ></ns-challenge-actions>
+  <FlexboxLayout class="page" *ngIf="!currentDay">
+    <Label class="no-challenge-text" text="No challenge found!"></Label>
+    <Button
+      class="btn"
+      text="Create!"
+      nsRouterLink="/challenges/replace"
+      pageTransition="slideLeft"
+    ></Button>
+  </FlexboxLayout>
+  <FlexboxLayout class="page" *ngIf="currentDay">
+    <Label class="h1" [text]="currentDay.date | date"></Label>
+    <ns-challenge-actions
+      (action-challenge-select)="onHandleActions($event)"
+      dynamicCancelText="Reset"
+    ></ns-challenge-actions>
+  </FlexboxLayout>
 </GridLayout>

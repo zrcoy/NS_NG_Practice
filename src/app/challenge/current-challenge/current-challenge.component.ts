@@ -1,33 +1,48 @@
-import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogService } from "@nativescript/angular";
 import { UIService } from "~/app/shared/ui/ui.service";
 import { DayModalComponent } from "../day-modal/day-modal.component";
+import { ChallengeService } from "../challenge.service";
+import { Challenge } from "../challenge.model";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "ns-current-challenge",
   templateUrl: "./current-challenge.component.html",
   styleUrls: ["./_current-challenge.component.common.scss"]
 })
-export class CurrentChallengeComponent implements OnInit {
+export class CurrentChallengeComponent implements OnInit, OnDestroy {
   weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  days: { dayInMonth: number; dayInWeek: number }[] = [];
-  private _currentYear: number;
-  private _currentMonth: number;
+  currentChallenge: Challenge;
+  private _sub_currChallenge: Subscription;
 
   constructor(
     private modalDialog: ModalDialogService,
     private vcRef: ViewContainerRef,
-    private uiService: UIService
+    private uiService: UIService,
+    private challengeService: ChallengeService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._sub_currChallenge = this.challengeService.CurrentChallenge.subscribe(
+      challenge => {
+        this.currentChallenge = challenge;
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    if (this._sub_currChallenge) {
+      this._sub_currChallenge.unsubscribe();
+    }
+  }
 
   getRow(index: number, day: { dayInMonth: number; dayInWeek: number }) {
     const startRow = 1;
     const weekRow = Math.floor(index / 7);
     const firstWeekdayOfThisMonth = new Date(
-      this._currentYear,
-      this._currentMonth,
+      new Date().getFullYear(),
+      new Date().getMonth(),
       1
     ).getDay();
     const possibleRow = day.dayInWeek < firstWeekdayOfThisMonth ? 1 : 0;
@@ -44,7 +59,7 @@ export class CurrentChallengeComponent implements OnInit {
         context: { date: new Date() }
       })
       .then((status: string) => {
-        console.log(status);
+        //console.log(status);
       });
   }
 }

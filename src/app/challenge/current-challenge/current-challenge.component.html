@@ -29,14 +29,27 @@
 </ns-action-bar>
 <ScrollView>
   <FlexboxLayout class="page">
-    <StackLayout>
-      <Label class="h1 text-center" text="Take a walk every day"></Label>
+    <StackLayout *ngIf="!currentChallenge">
+      <Label text="No challenge found!"></Label>
+      <Button
+        class="btn"
+        text="Create!"
+        nsRouterLink="/challenges/replace"
+        pageTransition="slideLeft"
+      ></Button>
+    </StackLayout>
+    <StackLayout *ngIf="currentChallenge">
+      <Label class="h1 text-center" [text]="currentChallenge.title"></Label>
       <Label
         class="body text-center"
-        text="Learn new programming knowledge every day"
+        [text]="currentChallenge.description"
       ></Label>
     </StackLayout>
-    <GridLayout rows="auto,*,*,*,*,*,*" columns="*,*,*,*,*,*,*">
+    <GridLayout
+      rows="auto,*,*,*,*,*,*"
+      columns="*,*,*,*,*,*,*"
+      *ngIf="currentChallenge"
+    >
       <Label
         class="h3 text-center weekdays"
         width="100%"
@@ -47,7 +60,7 @@
       ></Label>
       <FlexboxLayout
         class="days disabled"
-        *ngFor="let day of days; let i = index"
+        *ngFor="let day of currentChallenge.days; let i = index"
         [row]="getRow(i, day)"
         [col]="day.dayInWeek"
         (tap)="onChangeStatus()"
