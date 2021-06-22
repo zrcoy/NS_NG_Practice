@@ -19,14 +19,22 @@ export class ChallengeActionsComponent implements OnChanges {
   >();
   @Input() dynamicCancelText = "Cancel";
   @Input() actionChoice: "complete" | "fail" = null;
+  @Input() startDone = false;
   action: "complete" | "fail" = null;
   done: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
+    //if there's any changes on actionChoice variable
     if (changes.actionChoice) {
       this.action = changes.actionChoice.currentValue;
       if (changes.actionChoice.currentValue === null) {
         this.done = false;
+      }
+    }
+    //if there's any changes on startDone variable
+    if (changes.startDone) {
+      if (changes.startDone.currentValue) {
+        this.done = true;
       }
     }
   }

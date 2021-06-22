@@ -1,9 +1,11 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { take } from "rxjs/operators";
+import { take, tap } from "rxjs/operators";
 
 import { Challenge } from "./challenge.model";
 import { DayStatus } from "./day.model";
+import { Day } from "./day.model";
 
 @Injectable({
   providedIn: "root"
@@ -11,9 +13,41 @@ import { DayStatus } from "./day.model";
 export class ChallengeService {
   private _currentChallenge = new BehaviorSubject<Challenge>(null);
 
+  constructor(private http: HttpClient) {}
+
   get CurrentChallenge() {
     //asObservable make it concealed from outside, so outside can't call next() on this observable
     return this._currentChallenge.asObservable();
+  }
+
+  fetchCurrentChallenge() {
+    return this.http
+      .get<{
+        title: string;
+        description: string;
+        month: number;
+        year: number;
+        _days: Day[];
+      }>(
+        "https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge.json"
+      )
+      .pipe(
+        tap(res => {
+          if (res) {
+            console.log("get result succeed!");
+            //need to new a challenge instead of just a js obj, because not only the properties we need, but also,
+            //we need the methods inside Challenge obj
+            const challenge = new Challenge(
+              res.title,
+              res.description,
+              res.year,
+              res.month,
+              res._days
+            );
+            this._currentChallenge.next(challenge);
+          }
+        })
+      );
   }
 
   createChallenge(title: string, des: string) {
@@ -25,6 +59,7 @@ export class ChallengeService {
     );
 
     //save it to the server
+    this.saveToServer(challenge);
     this._currentChallenge.next(challenge);
   }
 
@@ -34,6 +69,7 @@ export class ChallengeService {
       challenge.title = title;
       challenge.description = des;
       //then send to a server
+      this.saveToServer(challenge);
       this._currentChallenge.next(challenge);
     });
   }
@@ -50,6 +86,18 @@ export class ChallengeService {
       });
       challenge.days[dayIdx].status = newStatus;
       this._currentChallenge.next(challenge);
+      this.saveToServer(challenge);
     });
+  }
+
+  private saveToServer(challenge: Challenge) {
+    this.http
+      .put(
+        "https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge.json",
+        challenge
+      )
+      .subscribe(res => {
+        //console.log(res);
+      });
   }
 }

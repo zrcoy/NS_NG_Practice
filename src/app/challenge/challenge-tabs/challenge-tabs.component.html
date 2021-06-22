@@ -1,4 +1,5 @@
 <TabView
+  *ngIf="!isLoading"
   androidTabsPosition="bottom"
   androidSelectedTabHighlightColor="#7c015d"
   selectedTabTextColor="#7c015d"
@@ -12,3 +13,7 @@
     <page-router-outlet name="currentChallenge"> </page-router-outlet>
   </StackLayout>
 </TabView>
+
+<FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading">
+  <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+</FlexboxLayout>
