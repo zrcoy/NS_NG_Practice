@@ -5,8 +5,9 @@
     text="Completed"
     (tap)="onAction('complete')"
     *ngIf="action !== 'complete'"
+    [isEnabled]="!done"
   ></Button>
-  <StackLayout
+  <FlexboxLayout
     height="60"
     class="btn btn-success"
     *ngIf="action === 'complete'"
@@ -14,23 +15,24 @@
     <Label
       text="&#xf058;"
       horizontalAlignment="center"
-      class="fa btn-markStatus"
+      class="fa btn-markStatus animate-button"
     ></Label>
-  </StackLayout>
+  </FlexboxLayout>
   <Button
     height="60"
     class="btn btn-fail"
     text="Failed"
     (tap)="onAction('fail')"
     *ngIf="action !== 'fail'"
+    [isEnabled]="!done"
   ></Button>
-  <StackLayout height="60" class="btn btn-fail" *ngIf="action === 'fail'">
+  <FlexboxLayout height="60" class="btn btn-fail" *ngIf="action === 'fail'">
     <Label
       text="&#xf057;"
       horizontalAlignment="center"
-      class="fa btn-markStatus"
+      class="fa btn-markStatus animate-button"
     ></Label>
-  </StackLayout>
+  </FlexboxLayout>
   <Button
     height="60"
     class="btn-flat"

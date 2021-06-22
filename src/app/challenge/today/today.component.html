@@ -16,6 +16,7 @@
     <Label class="h1" [text]="currentDay.date | date"></Label>
     <ns-challenge-actions
       (action-challenge-select)="onHandleActions($event)"
+      [actionChoice]="getActionChoice()"
       dynamicCancelText="Reset"
     ></ns-challenge-actions>
   </FlexboxLayout>

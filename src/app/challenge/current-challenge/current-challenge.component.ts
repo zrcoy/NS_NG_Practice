@@ -5,6 +5,7 @@ import { DayModalComponent } from "../day-modal/day-modal.component";
 import { ChallengeService } from "../challenge.service";
 import { Challenge } from "../challenge.model";
 import { Subscription } from "rxjs";
+import { Day, DayStatus } from "../day.model";
 
 @Component({
   selector: "ns-current-challenge",
@@ -49,17 +50,24 @@ export class CurrentChallengeComponent implements OnInit, OnDestroy {
     return startRow + weekRow + possibleRow;
   }
 
-  onChangeStatus() {
+  onChangeStatus(day: Day) {
+    if (this.getDisabledStatus(day.dayInMonth)) {
+      return;
+    }
     this.modalDialog
       .showModal(DayModalComponent, {
         fullscreen: true,
         viewContainerRef: this.uiService.getRootVCRef()
           ? this.uiService.getRootVCRef()
           : this.vcRef,
-        context: { date: new Date() }
+        context: { date: day.date }
       })
-      .then((status: string) => {
-        //console.log(status);
+      .then((status: DayStatus) => {
+        this.challengeService.updateDayStatus(day.dayInMonth, status);
       });
+  }
+
+  getDisabledStatus(day: number) {
+    return day > new Date().getDate();
   }
 }

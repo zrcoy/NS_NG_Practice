@@ -10,6 +10,7 @@ import { DayStatus } from "./day.model";
 })
 export class ChallengeService {
   private _currentChallenge = new BehaviorSubject<Challenge>(null);
+  private _testChallenge: Challenge;
 
   get CurrentChallenge() {
     //asObservable make it concealed from outside, so outside can't call next() on this observable
@@ -23,6 +24,7 @@ export class ChallengeService {
       new Date().getFullYear(),
       new Date().getMonth()
     );
+    this._testChallenge = challenge;
     //save it to the server
     this._currentChallenge.next(challenge);
   }
@@ -35,11 +37,10 @@ export class ChallengeService {
       }
       //find the specific day index and update its status
       const dayIdx = challenge.days.findIndex(d => {
-        d.dayInMonth === newDayInMonth;
+        return d.dayInMonth === newDayInMonth;
       });
       challenge.days[dayIdx].status = newStatus;
       this._currentChallenge.next(challenge);
-      console.log(challenge.days[dayIdx]);
     });
   }
 }

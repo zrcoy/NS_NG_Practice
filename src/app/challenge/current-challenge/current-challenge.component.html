@@ -59,11 +59,16 @@
         [col]="i"
       ></Label>
       <FlexboxLayout
-        class="days disabled"
+        class="days"
+        [ngClass]="{
+          disabled: getDisabledStatus(day.dayInMonth),
+          completed: day.status === 1,
+          failed: day.status === 2
+        }"
         *ngFor="let day of currentChallenge.days; let i = index"
         [row]="getRow(i, day)"
         [col]="day.dayInWeek"
-        (tap)="onChangeStatus()"
+        (tap)="onChangeStatus(day)"
       >
         <Label [text]="day.dayInMonth"></Label
       ></FlexboxLayout>
