@@ -10,7 +10,6 @@ import { DayStatus } from "./day.model";
 })
 export class ChallengeService {
   private _currentChallenge = new BehaviorSubject<Challenge>(null);
-  private _testChallenge: Challenge;
 
   get CurrentChallenge() {
     //asObservable make it concealed from outside, so outside can't call next() on this observable
@@ -24,9 +23,19 @@ export class ChallengeService {
       new Date().getFullYear(),
       new Date().getMonth()
     );
-    this._testChallenge = challenge;
+
     //save it to the server
     this._currentChallenge.next(challenge);
+  }
+
+  updateChallenge(title: string, des: string) {
+    this._currentChallenge.pipe(take(1)).subscribe(challenge => {
+      //keep days, year, month the same
+      challenge.title = title;
+      challenge.description = des;
+      //then send to a server
+      this._currentChallenge.next(challenge);
+    });
   }
 
   updateDayStatus(newDayInMonth: number, newStatus: DayStatus) {

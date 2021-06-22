@@ -4,6 +4,7 @@
     ios.position="right"
     android.position="actionBar"
     pageTransition="slideLeft"
+    *ngIf="currentChallenge"
   >
     <Label
       text="&#xf044;"
@@ -13,7 +14,7 @@
     ></Label>
   </ActionItem>
   <ActionItem
-    nsRouterLink="/challenges/replace"
+    nsRouterLink="/challenges/create"
     ios.position="right"
     android.position="actionBar"
     pageTransition="slideLeft"

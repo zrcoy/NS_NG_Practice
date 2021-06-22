@@ -1,5 +1,5 @@
 <ns-action-bar
-  [title]="finishCreating ? 'Replace Challenge' : 'Edit Challenge'"
+  [title]="!isCreating ? 'Edit Challenge' : 'Create Challenge'"
   [hasMenu]="false"
 ></ns-action-bar>
 <FlexboxLayout class="nt-form">
@@ -15,7 +15,7 @@
       class="input-field"
       required
       maxLength="15"
-      ngModel
+      [(ngModel)]="title"
       #titleCtrl="ngModel"
     ></TextField>
     <Label
@@ -35,7 +35,7 @@
       class="input-field"
       required
       maxLength="150"
-      ngModel
+      [(ngModel)]="description"
       #desCtrl="ngModel"
     ></TextView>
     <Label

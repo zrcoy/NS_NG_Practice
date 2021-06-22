@@ -25,6 +25,9 @@ export class ChallengeActionsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.actionChoice) {
       this.action = changes.actionChoice.currentValue;
+      if (changes.actionChoice.currentValue === null) {
+        this.done = false;
+      }
     }
   }
 
