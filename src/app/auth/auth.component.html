@@ -56,9 +56,9 @@
   <Button
     [text]="isLogin ? 'Login' : 'Signup'"
     class="btn"
-    nsRouterLink="/challenges"
-    [clearHistory]="true"
     (tap)="onSubmit()"
     [isEnabled]="form.valid"
+    *ngIf="!isLoading"
   ></Button>
+  <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
 </FlexboxLayout>
