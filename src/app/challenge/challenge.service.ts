@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, of } from "rxjs";
+import { Injectable, OnDestroy } from "@angular/core";
+import { BehaviorSubject, of, Subscription } from "rxjs";
 import { switchMap, take, tap } from "rxjs/operators";
 import { AuthService } from "../auth/auth.service";
 
@@ -11,10 +11,21 @@ import { Day } from "./day.model";
 @Injectable({
   providedIn: "root"
 })
-export class ChallengeService {
+export class ChallengeService implements OnDestroy {
   private _currentChallenge = new BehaviorSubject<Challenge>(null);
+  private _userSub: Subscription;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this._userSub = authService.user.subscribe(user => {
+      if (!user) {
+        this._currentChallenge.next(null);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this._userSub.unsubscribe();
+  }
 
   get CurrentChallenge() {
     //asObservable make it concealed from outside, so outside can't call next() on this observable
@@ -35,7 +46,7 @@ export class ChallengeService {
           year: number;
           _days: Day[];
         }>(
-          `https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge.json?auth=${currentUser.token}`
+          `https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge/${currentUser.id}.json?auth=${currentUser.token}`
         );
       }),
       tap(res => {
@@ -105,7 +116,7 @@ export class ChallengeService {
             return of(null);
           }
           return this.http.put(
-            `https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge.json?auth=${currentUser.token}`,
+            `https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge/${currentUser.id}.json?auth=${currentUser.token}`,
             challenge
           );
         })

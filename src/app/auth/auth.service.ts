@@ -12,6 +12,7 @@ import {
 } from "@nativescript/core/application-settings";
 
 import { User } from "./user.model";
+import { ChallengeService } from "../challenge/challenge.service";
 
 const FIREBASE_API_KEY = "AIzaSyDEAYVkz8WmmpB-sdm2aN8M9nOR94p63NU";
 
@@ -87,6 +88,7 @@ export class AuthService {
     if (this._tokenExpirationTimer) {
       clearTimeout(this._tokenExpirationTimer);
     }
+
     this.router.navigate(["/auth"], { clearHistory: true });
   }
 
