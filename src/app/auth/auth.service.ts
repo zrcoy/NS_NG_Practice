@@ -1,8 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { catchError, tap } from "rxjs/operators";
-import { BehaviorSubject, throwError } from "rxjs";
+import { BehaviorSubject, of, throwError } from "rxjs";
 import { alert } from "@nativescript/core";
+import { RouterExtensions } from "@nativescript/angular";
+import {
+  setString,
+  getString,
+  hasKey,
+  remove
+} from "@nativescript/core/application-settings";
 
 import { User } from "./user.model";
 
@@ -23,7 +30,7 @@ interface AuthResponseData {
 export class AuthService {
   private _user = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: RouterExtensions) {}
 
   signUp(email: string, password: string) {
     return this.http
@@ -73,6 +80,41 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this._user.next(null);
+    remove("userData");
+    this.router.navigate(["/"], { clearHistory: true });
+  }
+
+  autoLogin() {
+    if (!hasKey("userData")) {
+      //return a simple observable
+      return of(false);
+    }
+    //again , retrive only the properties from 'userData', no methods
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(getString("userData"));
+
+    const retrivedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+
+    if (retrivedUser.isAuth) {
+      this._user.next(retrivedUser);
+      this.router.navigate(["/challenges"], { clearHistory: true });
+      return of(true);
+    }
+    // we are not succeed of authentication
+    return of(false);
+  }
+
   get user() {
     return this._user;
   }
@@ -85,6 +127,8 @@ export class AuthService {
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
+    //only properties getting set to string here, mathods not possible
+    setString("userData", JSON.stringify(user));
     this._user.next(user);
   }
 

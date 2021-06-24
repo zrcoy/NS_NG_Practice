@@ -24,6 +24,9 @@ export class ChallengeService {
   fetchCurrentChallenge() {
     return this.authService.user.pipe(
       switchMap(currentUser => {
+        if (!currentUser || !currentUser.isAuth) {
+          return;
+        }
         return this.http.get<{
           title: string;
           description: string;
@@ -93,10 +96,14 @@ export class ChallengeService {
   }
 
   private saveToServer(challenge: Challenge) {
-    this.http
-      .put(
-        "https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge.json",
-        challenge
+    this.authService.user
+      .pipe(
+        switchMap(currentUser => {
+          return this.http.put(
+            `https://ns-ng-course-d4ef6-default-rtdb.firebaseio.com/challenge.json?auth=${currentUser.token}`,
+            challenge
+          );
+        })
       )
       .subscribe(res => {
         //console.log(res);
