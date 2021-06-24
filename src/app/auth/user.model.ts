@@ -19,4 +19,9 @@ export class User {
     }
     return this._token;
   }
+
+  get timeToExpiry() {
+    //remaining time to live in milliseconds
+    return this._tokenExpirationDate.getTime() - new Date().getTime();
+  }
 }

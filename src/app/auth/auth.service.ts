@@ -29,6 +29,7 @@ interface AuthResponseData {
 })
 export class AuthService {
   private _user = new BehaviorSubject<User>(null);
+  private _tokenExpirationTimer: null | ReturnType<typeof setTimeout> = null;
 
   constructor(private http: HttpClient, private router: RouterExtensions) {}
 
@@ -83,7 +84,10 @@ export class AuthService {
   logout() {
     this._user.next(null);
     remove("userData");
-    this.router.navigate(["/"], { clearHistory: true });
+    if (this._tokenExpirationTimer) {
+      clearTimeout(this._tokenExpirationTimer);
+    }
+    this.router.navigate(["/auth"], { clearHistory: true });
   }
 
   autoLogin() {
@@ -108,11 +112,18 @@ export class AuthService {
 
     if (retrivedUser.isAuth) {
       this._user.next(retrivedUser);
-      this.router.navigate(["/challenges"], { clearHistory: true });
+      this.autoLogout(retrivedUser.timeToExpiry);
       return of(true);
     }
     // we are not succeed of authentication
     return of(false);
+  }
+
+  autoLogout(expiryDuration: number) {
+    this._tokenExpirationTimer = setTimeout(
+      () => this.logout(),
+      expiryDuration
+    );
   }
 
   get user() {
@@ -129,6 +140,7 @@ export class AuthService {
     const user = new User(email, userId, token, expirationDate);
     //only properties getting set to string here, mathods not possible
     setString("userData", JSON.stringify(user));
+    this.autoLogout(user.timeToExpiry);
     this._user.next(user);
   }
 

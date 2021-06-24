@@ -31,15 +31,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.uiService.setRootVCRef(this.vcRef);
     this._drawerSub = this.uiService.drawerState.subscribe(() => {
       if (this._drawer) {
         this._drawer.toggleDrawerState();
       }
     });
-    this.authService.autoLogin().subscribe(success => {
-      console.log(success);
-    });
+    this.uiService.setRootVCRef(this.vcRef);
   }
 
   ngAfterViewInit() {
