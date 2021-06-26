@@ -1,11 +1,11 @@
-import { NativeScriptConfig } from '@nativescript/core';
+import { NativeScriptConfig } from "@nativescript/core";
 
 export default {
-  id: 'org.nativescript.nsngcourse',
-  appPath: 'src',
-  appResourcesPath: 'App_Resources',
+  id: "com.ruichao.monthlychallenge",
+  appPath: "src",
+  appResourcesPath: "App_Resources",
   android: {
-    v8Flags: '--expose_gc',
-    markingMode: 'none'
+    v8Flags: "--expose_gc",
+    markingMode: "none"
   }
 } as NativeScriptConfig;
